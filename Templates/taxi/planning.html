@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}PLANNING{% endblock %}
+{% block content %}
+	<div class="container-fluid">
+		<div class="row-fluid">
+		   {% for planning in plannings %}
+			{% if planning.numero_jour %}
+			  
+			<div class="col-md-12">
+				<div class="row">
+				  <div class="panel panel-primary mouseentrepot">
+					  <div class="panel-heading"><center><h3>{{planning.numero_jour}} </h3> {{planning.modele}} ( {{planning.numero_plaque}}) entre  {{planning.debut}} et  {{planning.Fin}}</center></div>
+					  <div class="panel-body ">
+						<div class="col-md-4">
+							<fieldset>
+								<legend><center>Informations Chauffeur</center></legend>
+								<div class="col-md-8">
+									<form class="form-horizontal" role="form">
+									  <div class="form-group">
+										<label  class="col-sm-3 control-label">Nom  :</label>
+										<div class="col-sm-7">
+										  <input type="text" class="form-control"  placeholder="{{planning.nom}}  {{planning.prenom}}" disabled>
+										</div>
+									  </div>
+
+									  <div class="form-group">
+										<label  class="col-sm-3 control-label">Tel: </label>
+										<div class="col-sm-7">
+										  <input type="text" class="form-control"  placeholder="{{planning.num}}" disabled>
+										</div>
+									  </div>
+									  <div class="form-group">
+										<label  class="col-sm-3 control-label">Adresse: </label>
+										<div class="col-sm-7">
+										  <input type="text" class="form-control"  placeholder="{{planning.adresse}}" disabled>
+										</div>
+									  </div>
+									  
+									</form>
+								</div>
+								<div class="col-md-4">
+									<img src="{{planning.logo_chauffeur.url}}"  style="width:100px;"/>
+									<span class=" col-sm-12 label label-success"   style="width:100px;">Permis {{planning.permischauff}}</span>
+								</div>
+							</fieldset>
+						</div>
+						  
+						<div class="col-md-4">
+							<fieldset>
+								<legend><center>Informations Voiture</center></legend>
+								<div class="col-md-8">
+									<form class="form-horizontal" role="form">
+									  <div class="form-group">
+										<label  class="col-sm-3 control-label">Modele:</label>
+										<div class="col-sm-6">
+										  <input type="text" class="form-control"  placeholder="{{planning.modele}}" disabled>
+										</div>
+									  </div>
+
+									  <div class="form-group">
+										<label  class="col-sm-3 control-label">Nb Places:</label>
+										<div class="col-sm-6">
+										  <input type="text" class="form-control"  placeholder="{{planning.nb_place}}" disabled>
+										</div>
+									  </div>
+									  <div class="form-group">
+										<label  class="col-sm-3 control-label">Carburant: </label>
+										<div class="col-sm-6">
+										  <input type="text" class="form-control"  placeholder="{{planning.carburant}}" disabled>
+										</div>
+									  </div>
+									  
+									</form>
+								</div>
+								<div class="col-md-4">
+									<span class=" col-sm-12 label label-info"  style="width:150px;">{{planning.numero_plaque}}</span>
+									<img src="{{planning.logo_voiture.url}}" style="width:150px;"/>
+									<a href="#"><center>Premier Service le  <span class="badge">{{planning.date_service}}</center></span></a>
+								</div>
+							</fieldset>
+						</div>						  
+						<div class="col-md-4">
+							<fieldset>
+								<legend><center>Informations Vacations et Temps réel</center></legend>
+								<div class="col-md-8">
+									<form class="form-horizontal" role="form">
+									  <div class="form-group">
+										<label  class="col-sm-3 control-label">Debut :</label>
+										<div class="col-sm-7">
+										  <input type="text" class="form-control"  placeholder="{{planning.debut}}" disabled>
+										</div>
+									  </div>
+
+									  <div class="form-group">
+										<label  class="col-sm-3 control-label">Fin :</label>
+										<div class="col-sm-7">
+										  <input type="text" class="form-control"  placeholder="{{planning.Fin}}" disabled>
+										</div>
+									  </div>
+									  <div class="form-group">
+										<label  class="col-sm-3 control-label">Derniére Localisation: </label>
+										<div class="col-sm-7">
+										  <input type="text" class="form-control"  placeholder="Zone  {{planning.derniereloc}} le {{planning.heureloc}} " disabled>
+										</div>
+									  </div>
+									  
+									</form>
+								</div>
+								<div class="col-md-4">
+									<!-- Button trigger modal -->
+									<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+									  Voir les Distances
+									</button>
+									<!-- Modal -->
+									<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									  <div class="modal-dialog">
+										<div class="modal-content">
+										  <div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+											<h4 class="modal-title" id="myModalLabel">Distance et Temps de Parcours</h4>
+										  </div>
+										  <div class="modal-body">
+												<table class="table table-condensed">
+													<tr> <th>Jusqu'à la zone</th> <th>Temps (minutes)</th> <th>Distances à Parcourir (km)</th> </tr>
+													{% for position in  planning.otherzone  %}
+														<tr class="success" > <td>{{position.zonea}}</td> <td>{{position.temps_parcours}} minutes</td> <td>{{position.distance}} km</td> </tr>
+													{% endfor %}
+												</table>
+										  </div>
+										  <div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										  </div>
+										</div>
+									  </div>
+									</div>
+								</div>
+							</fieldset>
+						</div>						  						  
+						  
+					  </div>				  
+				  </div>
+				</div>
+			</div>
+			{% endif %}
+		   {% endfor %}
+		</div>
+	</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

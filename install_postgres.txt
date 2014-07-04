@@ -1,0 +1,10 @@
+sudo apt-get install libpq-dev python-dev (dependencies for PostgreSQL to work with Django with this command)
+////////////////////////Configurer Postgres/////
+sudo su - postgres
+createdb facturedevis
+sudo su - postgres
+createuser -P
+/////Requete pour ajouter l'admin ////
+psql //pour passer en mode requête
+GRANT ALL PRIVILEGES ON DATABASE facturedevis TO admin; ///
+///////////////////////////////////////

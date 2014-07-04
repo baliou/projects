@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+<div class="container-fluid"> 
+	<div class="row-fluid">
+		 <div class="row jumbotron">		
+<form  class="form-horizontal" role="form" method="post" action=".">
+  {% csrf_token %} 
+		  {% if form.non_field_errors %}
+			  <div class="alert alert-danger">
+				{{ form.non_field_errors|striptags }}
+			  </div>
+		  {% endif %}
+		  {% if not form.username.errors %}
+			<div class="form-group">
+				<label for="name" class="col-sm-2 control-label">{{ form.username.label_tag }}</label>
+					<div class="col-sm-10">
+						<input id="id_username" name="username" type="text" class="form-control" placeholder="Username (admin)" autofocus>
+					</div>				
+			</div>				
+		  {% else %}
+			<div class="form-group has-error">
+			  {% for error in form.username.errors %}
+				<label class="control-label" for="id_username">{{ error }}</label>
+			  {% endfor %}
+			  <input id="id_username" name="username" type="text" class="form-control"  autofocus>
+			</div>
+		  {% endif %}
+		  {% if not form.password.errors %}
+			<div class="form-group">
+				<label for="name" class="col-sm-2 control-label">{{ form.password.label_tag }}</label>
+					<div class="col-sm-10">			
+						<input id="id_password" name="password" type="password" class="form-control"  autofocus>
+					</div>				
+			</div>						
+		  {% else %}
+			<div class="form-group has-error">
+			  {% for error in form.password.errors %}
+				<label class="control-label" for="id_password">{{ error }}</label>
+			  {% endfor %}
+			  <input id="id_password" name="password" type="text" class="form-control" placeholder="Password (admin)">
+			</div>
+		  {% endif %}
+
+						<button type="submit" class="btn btn-warning pull-right">
+							<span>Se Connecter</span>
+							<i class="glyphicon glyphicon-ok"></i>
+							
+						</button>		  
+				{% trans "Forgot password" %}? <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>!<br/>
+				{% trans "Not member" %}? <a href="{% url 'registration_register' %}">{% trans "Register" %}</a>!
+		
+
+</form>
+
+
+		
+			 
+
+		</div>
+	</div>
+</div>
+
+{% endblock %}

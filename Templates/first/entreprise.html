@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div id="detailsentr">
+			<fieldset>
+				<legend>Entreprise</legend>
+				<table class="table">
+					
+					<tr class="success"> <th>Name</th>  <th>Siret</th>  <th>Slogan</th>  <th>Créaton</th>  <th>Domaine</th>  <th>logo</th>  </tr>
+					<tr class="warning"> <td>{{ entr.name }}</td>  <td>{{ entr.siret }}</td>  <td>{{ entr.slogan }}</td>  <td>Créaton</td>  <td>{{ entr.domaine }}</td>  <td><img src="{{ MEDIA_URL }}{{ entr.logo }}"/></td>  </tr>
+				</table>
+			</fieldset>
+		</div>
+		<div id="detailsprod">
+			<fieldset>
+				<table class="table">
+					<tr class="success"> <th>Name</th>  <th>Prix Unitaire</th>  <th>Stock</th>   <th>Taxe</th>   </tr>
+					{% for produit in products %}
+						<tr class="warning"> <td>{{ produit.produit_name }}</td>  <td>{{ produit.produit_prix }}</td>  <td>{{ produit.stock }}</td>    <td>{{ produit.taxe }}/100</td>   </tr>
+					{% endfor %}
+				</table>
+		</div>
+		<div class="alert alert-success">You are successfully logged in</div>
+		<a href='/logout'>Log out</a>
+	</div>
+</div>
+{% endblock %}
+ 
